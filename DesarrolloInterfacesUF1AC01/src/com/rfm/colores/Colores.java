@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Component;
 
 public class Colores {
 
@@ -40,7 +41,7 @@ public class Colores {
 		frameColores.getContentPane().setBackground(SystemColor.menu);
 		frameColores.setResizable(false);
 		frameColores.setTitle("Colores");
-		frameColores.setBounds(100, 100, 600, 400);
+		frameColores.setBounds(100, 100, 450, 400);
 		frameColores.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameColores.getContentPane().setLayout(null);
 
@@ -54,6 +55,7 @@ public class Colores {
 		panelColors.add(radioButtonBlue);
 
 		JRadioButton radioButtonRed = new JRadioButton("Rojo");
+		radioButtonRed.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelColors.add(radioButtonRed);
 
 		JRadioButton radioButtonYellow = new JRadioButton("Amarillo");
@@ -71,9 +73,9 @@ public class Colores {
 		JRadioButton radioButtonUp = new JRadioButton("Arriba");
 		panelPosition.add(radioButtonUp);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(359, 66, 10, 10);
-		frameColores.getContentPane().add(panel);
+		JPanel panelCanvas = new JPanel();
+		panelCanvas.setBounds(248, 25, 160, 143);
+		frameColores.getContentPane().add(panelCanvas);
 	}
 
 }
