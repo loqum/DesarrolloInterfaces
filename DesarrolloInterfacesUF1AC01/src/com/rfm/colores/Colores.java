@@ -8,8 +8,6 @@ import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.BevelBorder;
 
-import com.rfm.utils.Utils;
-
 import java.awt.SystemColor;
 import java.awt.Component;
 import java.awt.Canvas;
@@ -47,7 +45,7 @@ public class Colores {
 		frameColores.getContentPane().setBackground(SystemColor.menu);
 		frameColores.setResizable(false);
 		frameColores.setTitle("Colores");
-		frameColores.setBounds(100, 100, 450, 450);
+		frameColores.setBounds(100, 100, 450, 400);
 		frameColores.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameColores.getContentPane().setLayout(null);
 
@@ -92,9 +90,8 @@ public class Colores {
 		radioButtonBlue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.setBackground(Color.BLUE);
-//				radioButtonRed.setSelected(false);
-//				radioButtonYellow.setSelected(false);
-				Utils.reset(radioButtonRed, radioButtonYellow);
+				radioButtonRed.setSelected(false);
+				radioButtonYellow.setSelected(false);
 				
 			}
 		});
@@ -102,18 +99,30 @@ public class Colores {
 		radioButtonRed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.setBackground(Color.RED);
-//				radioButtonBlue.setSelected(false);
-//				radioButtonYellow.setSelected(false);
-				Utils.reset(radioButtonBlue, radioButtonYellow);
+				radioButtonBlue.setSelected(false);
+				radioButtonYellow.setSelected(false);
 			}
 		});
 		
 		radioButtonYellow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				canvas.setBackground(Color.YELLOW);
-//				radioButtonRed.setSelected(false);
-//				radioButtonBlue.setSelected(false);
-				Utils.reset(radioButtonRed, radioButtonBlue);
+				radioButtonRed.setSelected(false);
+				radioButtonBlue.setSelected(false);
+			}
+		});
+		
+		radioButtonUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelCanvas.setBounds(234, 25, 178, 143);
+				radioButtonDown.setSelected(false);
+			}
+		});
+		
+		radioButtonDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelCanvas.setBounds(234, 200, 178, 143);
+				radioButtonUp.setSelected(false);
 			}
 		});
 	}
