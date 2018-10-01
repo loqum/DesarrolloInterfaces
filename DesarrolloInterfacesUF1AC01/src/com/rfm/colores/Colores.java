@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 
 public class Colores {
 
@@ -45,6 +46,7 @@ public class Colores {
 
 	private void initialize() {
 		frameColores = new JFrame();
+		frameColores.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\paint-and-brush.png"));
 		frameColores.getContentPane().setBackground(SystemColor.menu);
 		frameColores.setResizable(false);
 		frameColores.setTitle("Colores");
@@ -62,6 +64,7 @@ public class Colores {
 		JRadioButton radioButtonUp = new JRadioButton("Arriba");
 
 		JPanel panelCanvas = new JPanel();
+		panelCanvas.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		Canvas canvas = new Canvas();
 
 		panelColors.setToolTipText("");
