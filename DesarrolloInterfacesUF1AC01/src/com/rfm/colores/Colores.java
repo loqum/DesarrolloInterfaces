@@ -11,7 +11,6 @@ import javax.swing.border.TitledBorder;
 import com.rfm.utils.Utils;
 
 import java.awt.EventQueue;
-import java.awt.SystemColor;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.event.ActionListener;
