@@ -3,6 +3,8 @@ package com.rfm.colores;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
@@ -18,6 +20,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.GridLayout;
 
 public class Colores {
 
@@ -34,20 +37,36 @@ public class Colores {
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					throw e;
+					try {
+						throw e;
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 	}
 
-	public Colores() {
+	public Colores() throws Exception {
 		initialize();
 	}
 
-	private void initialize() {
+	private void initialize() throws Exception {
+		
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+			throw e;
+		}
+		
 		frameColores = new JFrame();
 		frameColores.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\paint-and-brush.png"));
-		frameColores.getContentPane().setBackground(SystemColor.menu);
+		frameColores.getContentPane().setBackground(new Color(214, 217, 223));
 		frameColores.setResizable(false);
 		frameColores.setTitle("Colores");
 		frameColores.setBounds(100, 100, 450, 400);
@@ -92,7 +111,7 @@ public class Colores {
 				radioButtonRed.setSelected(false);
 				radioButtonYellow.setSelected(false);
 				if (Utils.isSelectedButton(radioButtonRed, radioButtonBlue, radioButtonYellow) == false) {
-					canvas.setBackground(new java.awt.Color(240, 240, 240));
+					canvas.setBackground(new java.awt.Color(214, 217, 223));
 				}
 
 			}
@@ -111,7 +130,7 @@ public class Colores {
 				radioButtonBlue.setSelected(false);
 				radioButtonYellow.setSelected(false);
 				if (Utils.isSelectedButton(radioButtonRed, radioButtonBlue, radioButtonYellow) == false) {
-					canvas.setBackground(new java.awt.Color(240, 240, 240));
+					canvas.setBackground(new java.awt.Color(214, 217, 223));
 				}
 			}
 		});
@@ -128,7 +147,7 @@ public class Colores {
 				radioButtonRed.setSelected(false);
 				radioButtonBlue.setSelected(false);
 				if (Utils.isSelectedButton(radioButtonRed, radioButtonBlue, radioButtonYellow) == false) {
-					canvas.setBackground(new java.awt.Color(240, 240, 240));
+					canvas.setBackground(new java.awt.Color(214, 217, 223));
 				}
 			}
 		});
@@ -173,10 +192,7 @@ public class Colores {
 
 		panelCanvas.setBounds(234, 25, 178, 143);
 		frameColores.getContentPane().add(panelCanvas);
-
-		panelCanvas.setLayout(null);
-
-		canvas.setBounds(0, 0, 178, 143);
+		panelCanvas.setLayout(new GridLayout(0, 1, 0, 0));
 		panelCanvas.add(canvas);
 
 	}
