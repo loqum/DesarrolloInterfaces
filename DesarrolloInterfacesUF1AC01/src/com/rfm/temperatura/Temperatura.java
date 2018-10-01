@@ -29,10 +29,13 @@ import javax.swing.event.ChangeListener;
 import com.rfm.utils.Utils;
 
 import javax.swing.event.ChangeEvent;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class Temperatura {
 
-	private JFrame frame;
+	private JFrame frameTemperature;
 	private JTextField inputCentigrades;
 	private JTextField inputFahrenheit;
 
@@ -44,7 +47,7 @@ public class Temperatura {
 			public void run() {
 				try {
 					Temperatura window = new Temperatura();
-					window.frame.setVisible(true);
+					window.frameTemperature.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -79,13 +82,15 @@ public class Temperatura {
 			throw e;
 		}
 
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 420, 360);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameTemperature = new JFrame();
+		frameTemperature.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\thermometer.png"));
+		frameTemperature.setTitle("Temperatura");
+		frameTemperature.setResizable(false);
+		frameTemperature.setBounds(700, 300, 420, 360);
+		frameTemperature.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuSup = new JMenuBar();
-		frame.setJMenuBar(menuSup);
+		frameTemperature.setJMenuBar(menuSup);
 
 		JMenu buttonMenu = new JMenu("Menú");
 		menuSup.add(buttonMenu);
@@ -98,7 +103,7 @@ public class Temperatura {
 		gridBagLayout.rowHeights = new int[]{0, 50, 0, 28, 10, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		frameTemperature.getContentPane().setLayout(gridBagLayout);
 		
 		JPanel panelTemperature = new JPanel();
 		panelTemperature.setBorder(new TitledBorder(null, "Temperatura", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
@@ -107,7 +112,7 @@ public class Temperatura {
 		gbc_panelTemperature.insets = new Insets(0, 0, 5, 0);
 		gbc_panelTemperature.gridx = 0;
 		gbc_panelTemperature.gridy = 1;
-		frame.getContentPane().add(panelTemperature, gbc_panelTemperature);
+		frameTemperature.getContentPane().add(panelTemperature, gbc_panelTemperature);
 		GridBagLayout gbl_panelTemperature = new GridBagLayout();
 		gbl_panelTemperature.columnWidths = new int[]{0, 0};
 		gbl_panelTemperature.rowHeights = new int[]{50, 0};
@@ -121,7 +126,7 @@ public class Temperatura {
 		sliderTemperature.setMajorTickSpacing(25);
 		sliderTemperature.setMinorTickSpacing(10);
 		sliderTemperature.setPaintTicks(true);
-		
+				
 		Hashtable<Object, Object> position = new Hashtable<>();
 		position.put(0, new JLabel("0"));
 		position.put(25, new JLabel("25"));
@@ -148,7 +153,7 @@ public class Temperatura {
 		gbc_panelDegrees.insets = new Insets(0, 0, 5, 0);
 		gbc_panelDegrees.gridx = 0;
 		gbc_panelDegrees.gridy = 3;
-		frame.getContentPane().add(panelDegrees, gbc_panelDegrees);
+		frameTemperature.getContentPane().add(panelDegrees, gbc_panelDegrees);
 		GridBagLayout gbl_panelDegrees = new GridBagLayout();
 		gbl_panelDegrees.columnWidths = new int[]{0, 0, 0};
 		gbl_panelDegrees.rowHeights = new int[]{28, 0};
@@ -166,16 +171,24 @@ public class Temperatura {
 		panelDegrees.add(panelCentigrades, gbc_panelCentigrades);
 		GridBagLayout gbl_panelCentigrades = new GridBagLayout();
 		gbl_panelCentigrades.columnWidths = new int[]{0, 0};
-		gbl_panelCentigrades.rowHeights = new int[]{28, 0};
+		gbl_panelCentigrades.rowHeights = new int[]{0, 28, 0};
 		gbl_panelCentigrades.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panelCentigrades.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelCentigrades.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panelCentigrades.setLayout(gbl_panelCentigrades);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\celsius.png"));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		panelCentigrades.add(lblNewLabel, gbc_lblNewLabel);
 		
 		inputCentigrades = new JTextField();
 		
 		GridBagConstraints gbc_inputCentigrades = new GridBagConstraints();
 		gbc_inputCentigrades.gridx = 0;
-		gbc_inputCentigrades.gridy = 0;
+		gbc_inputCentigrades.gridy = 1;
 		panelCentigrades.add(inputCentigrades, gbc_inputCentigrades);
 		inputCentigrades.setEditable(false);
 		inputCentigrades.setColumns(10);
@@ -189,15 +202,23 @@ public class Temperatura {
 		panelDegrees.add(panelFahrenheit, gbc_panelFahrenheit);
 		GridBagLayout gbl_panelFahrenheit = new GridBagLayout();
 		gbl_panelFahrenheit.columnWidths = new int[]{0, 0};
-		gbl_panelFahrenheit.rowHeights = new int[]{28, 0};
+		gbl_panelFahrenheit.rowHeights = new int[]{0, 28, 0};
 		gbl_panelFahrenheit.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panelFahrenheit.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelFahrenheit.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panelFahrenheit.setLayout(gbl_panelFahrenheit);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\fahrenheit.png"));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_1.gridx = 0;
+		gbc_lblNewLabel_1.gridy = 0;
+		panelFahrenheit.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		inputFahrenheit = new JTextField();
 		GridBagConstraints gbc_inputFahrenheit = new GridBagConstraints();
 		gbc_inputFahrenheit.gridx = 0;
-		gbc_inputFahrenheit.gridy = 0;
+		gbc_inputFahrenheit.gridy = 1;
 		panelFahrenheit.add(inputFahrenheit, gbc_inputFahrenheit);
 		inputFahrenheit.setEditable(false);
 		inputFahrenheit.setColumns(10);
@@ -207,7 +228,7 @@ public class Temperatura {
 		gbc_panelButtonOut.fill = GridBagConstraints.BOTH;
 		gbc_panelButtonOut.gridx = 0;
 		gbc_panelButtonOut.gridy = 4;
-		frame.getContentPane().add(panelButtonOut, gbc_panelButtonOut);
+		frameTemperature.getContentPane().add(panelButtonOut, gbc_panelButtonOut);
 		GridBagLayout gbl_panelButtonOut = new GridBagLayout();
 		gbl_panelButtonOut.columnWidths = new int[]{0, 0};
 		gbl_panelButtonOut.rowHeights = new int[]{50, 0};
@@ -216,7 +237,9 @@ public class Temperatura {
 		panelButtonOut.setLayout(gbl_panelButtonOut);
 		
 		JButton buttonOut = new JButton("Salir");
+		buttonOut.setFont(new Font("SansSerif", Font.BOLD, 16));
 		GridBagConstraints gbc_buttonOut = new GridBagConstraints();
+		gbc_buttonOut.fill = GridBagConstraints.HORIZONTAL;
 		gbc_buttonOut.gridx = 0;
 		gbc_buttonOut.gridy = 0;
 		panelButtonOut.add(buttonOut, gbc_buttonOut);
@@ -224,8 +247,8 @@ public class Temperatura {
 		
 		buttonOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int dialogButton = JOptionPane.showConfirmDialog(null, "¿Seguro que desea salir del programa?",
-						"Temperatura", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+				int dialogButton = JOptionPane.showConfirmDialog(frameTemperature, "¿Seguro que desea salir del programa?",
+						"Temperatura", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (dialogButton == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
@@ -234,8 +257,8 @@ public class Temperatura {
 
 		buttonMenuOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int dialogButton = JOptionPane.showConfirmDialog(null, "¿Seguro que desea salir del programa?",
-						"Temperatura", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+				int dialogButton = JOptionPane.showConfirmDialog(frameTemperature, "¿Seguro que desea salir del programa?",
+						"Temperatura", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (dialogButton == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
