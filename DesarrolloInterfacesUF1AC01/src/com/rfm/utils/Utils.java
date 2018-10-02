@@ -10,7 +10,7 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 public class Utils {
 
-	private static String PATTERN = "\\d+";
+	private static String PATTERN = "^(\\d*\\.)?\\d+$";
 	private static String PATTERN_DECIMAL = "%.2f";
 
 
