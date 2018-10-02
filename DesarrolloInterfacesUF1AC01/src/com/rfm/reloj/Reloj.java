@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -21,19 +20,20 @@ import javax.swing.border.TitledBorder;
 import com.rfm.utils.Utils;
 
 import javax.swing.Timer;
-import java.awt.Font;
+import javax.swing.JLabel;
+import java.awt.Toolkit;
 
 public class Reloj {
 
 	private JFrame frameClock;
-	private JTextField inputTime;
 	private JPanel panelTime;
 	private JPanel panelButtons;
 	private JPanel panelClock;
-	private JTextField inputDate;
 	private JPanel panelDate;
 	private Timer timer;
 	private static int ONE_MILLISECOND = 1;
+	private JLabel labelTime;
+	private JLabel labelDate;
 
 	/**
 	 * Launch the application.
@@ -79,9 +79,10 @@ public class Reloj {
 		}
 
 		frameClock = new JFrame();
+		frameClock.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\rfernandezm\\git\\DesarrolloInterfaces\\DesarrolloInterfacesUF1AC01\\resources\\clock.png"));
 		frameClock.setResizable(false);
 		frameClock.setTitle("Reloj");
-		frameClock.setBounds(100, 100, 450, 250);
+		frameClock.setBounds(100, 100, 300, 150);
 		frameClock.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
@@ -99,14 +100,14 @@ public class Reloj {
 		frameClock.getContentPane().add(panelClock, gbc_panelClock);
 		GridBagLayout gbl_panelClock = new GridBagLayout();
 		gbl_panelClock.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelClock.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panelClock.rowHeights = new int[] { 0, 0 };
 		gbl_panelClock.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panelClock.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelClock.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelClock.setLayout(gbl_panelClock);
 
 		panelTime = new JPanel();
 		GridBagConstraints gbc_panelTime = new GridBagConstraints();
-		gbc_panelTime.insets = new Insets(0, 0, 5, 5);
+		gbc_panelTime.insets = new Insets(0, 0, 0, 5);
 		gbc_panelTime.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelTime.gridx = 0;
 		gbc_panelTime.gridy = 0;
@@ -119,23 +120,17 @@ public class Reloj {
 		gbl_panelTime.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_panelTime.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelTime.setLayout(gbl_panelTime);
-
-		inputTime = new JTextField();
-		inputTime.setEditable(false);
-		inputTime.setFont(new Font("SansSerif", Font.BOLD, 16));
-
-		GridBagConstraints gbc_inputTime = new GridBagConstraints();
-		gbc_inputTime.fill = GridBagConstraints.HORIZONTAL;
-		gbc_inputTime.gridx = 0;
-		gbc_inputTime.gridy = 0;
-		panelTime.add(inputTime, gbc_inputTime);
-		inputTime.setColumns(10);
+		
+		labelTime = new JLabel("");
+		GridBagConstraints gbc_labelTime = new GridBagConstraints();
+		gbc_labelTime.gridx = 0;
+		gbc_labelTime.gridy = 0;
+		panelTime.add(labelTime, gbc_labelTime);
 
 		panelDate = new JPanel();
 		panelDate.setBorder(
 				new TitledBorder(null, "Fecha", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
 		GridBagConstraints gbc_panelDate = new GridBagConstraints();
-		gbc_panelDate.insets = new Insets(0, 0, 5, 0);
 		gbc_panelDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelDate.gridx = 1;
 		gbc_panelDate.gridy = 0;
@@ -146,16 +141,12 @@ public class Reloj {
 		gbl_panelDate.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_panelDate.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelDate.setLayout(gbl_panelDate);
-
-		inputDate = new JTextField();
-		inputDate.setFont(new Font("SansSerif", Font.BOLD, 16));
-		inputDate.setEditable(false);
-		GridBagConstraints gbc_inputDate = new GridBagConstraints();
-		gbc_inputDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_inputDate.gridx = 0;
-		gbc_inputDate.gridy = 0;
-		panelDate.add(inputDate, gbc_inputDate);
-		inputDate.setColumns(10);
+		
+		labelDate = new JLabel("");
+		GridBagConstraints gbc_labelDate = new GridBagConstraints();
+		gbc_labelDate.gridx = 0;
+		gbc_labelDate.gridy = 0;
+		panelDate.add(labelDate, gbc_labelDate);
 
 		panelButtons = new JPanel();
 		GridBagConstraints gbc_panelButtons = new GridBagConstraints();
@@ -189,8 +180,9 @@ public class Reloj {
 		Calendar calendar = Calendar.getInstance();
 
 		timer = new Timer(ONE_MILLISECOND, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inputTime.setText(Utils.setTime(calendar));
+			public void actionPerformed(ActionEvent e) {				
+				labelDate.setText(Utils.setFormatDate(calendar));
+				labelTime.setText(Utils.setFormatTime(calendar));
 			}
 		});
 

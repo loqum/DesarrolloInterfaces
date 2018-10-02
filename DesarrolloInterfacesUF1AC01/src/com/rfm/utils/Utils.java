@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.ibm.icu.text.SimpleDateFormat;
+
 public class Utils {
 
 	private static String PATTERN = "\\d+";
@@ -58,21 +60,28 @@ public class Utils {
 		return String.valueOf(String.format(PATTERN_DECIMAL, result));
 	}
 	
-	public static String setTime(Calendar calendar) {
-		String time = null;
+	public static String setFormatTime(Calendar calendar) {
+		String timeToString = null;
 		
-		Date date = new Date();
+		Date currentTime = new Date();
 		
-		calendar.setTime(date);
+		calendar.setTime(currentTime);
 		
-		time = String.format("%1$tH:%1$tM:%1$tS", calendar);
+		timeToString = String.format("%1$tH:%1$tM:%1$tS", calendar);
 		
-		return time;
+		return timeToString;
 	}
 	
-	public static String setDate(Calendar calendar) {
-		return PATTERN;
-//		String 
+	public static String setFormatDate(Calendar calendar) {
+		String dateToString = null;
+		
+		Date currentDate = new Date();
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		
+		dateToString = simpleDateFormat.format(currentDate);
+						
+		return dateToString;
 	}
 
 }
