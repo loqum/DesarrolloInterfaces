@@ -13,9 +13,15 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import com.rfm.utils.Utils;
+
+import javax.swing.Timer;
+import java.awt.Font;
 
 public class Reloj {
 
@@ -26,6 +32,8 @@ public class Reloj {
 	private JPanel panelClock;
 	private JTextField inputDate;
 	private JPanel panelDate;
+	private Timer timer;
+	private static int ONE_MILLISECOND = 1;
 
 	/**
 	 * Launch the application.
@@ -76,17 +84,17 @@ public class Reloj {
 		frameClock.setBounds(100, 100, 450, 250);
 		frameClock.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 10, 0, 0, 10, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		frameClock.getContentPane().setLayout(gridBagLayout);
 
 		panelClock = new JPanel();
 		GridBagConstraints gbc_panelClock = new GridBagConstraints();
 		gbc_panelClock.fill = GridBagConstraints.BOTH;
-		gbc_panelClock.insets = new Insets(0, 0, 5, 0);
-		gbc_panelClock.gridx = 0;
+		gbc_panelClock.insets = new Insets(0, 0, 5, 5);
+		gbc_panelClock.gridx = 1;
 		gbc_panelClock.gridy = 1;
 		frameClock.getContentPane().add(panelClock, gbc_panelClock);
 		GridBagLayout gbl_panelClock = new GridBagLayout();
@@ -104,7 +112,7 @@ public class Reloj {
 		gbc_panelTime.gridy = 0;
 		panelClock.add(panelTime, gbc_panelTime);
 		panelTime.setBorder(
-				new TitledBorder(null, "Fecha", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				new TitledBorder(null, "Hora", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_panelTime = new GridBagLayout();
 		gbl_panelTime.columnWidths = new int[] { 0, 0 };
 		gbl_panelTime.rowHeights = new int[] { 0, 0 };
@@ -113,17 +121,19 @@ public class Reloj {
 		panelTime.setLayout(gbl_panelTime);
 
 		inputTime = new JTextField();
+		inputTime.setEditable(false);
+		inputTime.setFont(new Font("SansSerif", Font.BOLD, 16));
+
 		GridBagConstraints gbc_inputTime = new GridBagConstraints();
 		gbc_inputTime.fill = GridBagConstraints.HORIZONTAL;
 		gbc_inputTime.gridx = 0;
 		gbc_inputTime.gridy = 0;
 		panelTime.add(inputTime, gbc_inputTime);
-		inputTime.setEditable(false);
 		inputTime.setColumns(10);
 
 		panelDate = new JPanel();
 		panelDate.setBorder(
-				new TitledBorder(null, "Hora", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
+				new TitledBorder(null, "Fecha", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
 		GridBagConstraints gbc_panelDate = new GridBagConstraints();
 		gbc_panelDate.insets = new Insets(0, 0, 5, 0);
 		gbc_panelDate.fill = GridBagConstraints.HORIZONTAL;
@@ -138,6 +148,7 @@ public class Reloj {
 		panelDate.setLayout(gbl_panelDate);
 
 		inputDate = new JTextField();
+		inputDate.setFont(new Font("SansSerif", Font.BOLD, 16));
 		inputDate.setEditable(false);
 		GridBagConstraints gbc_inputDate = new GridBagConstraints();
 		gbc_inputDate.fill = GridBagConstraints.HORIZONTAL;
@@ -148,9 +159,9 @@ public class Reloj {
 
 		panelButtons = new JPanel();
 		GridBagConstraints gbc_panelButtons = new GridBagConstraints();
-		gbc_panelButtons.insets = new Insets(0, 0, 5, 0);
+		gbc_panelButtons.insets = new Insets(0, 0, 5, 5);
 		gbc_panelButtons.fill = GridBagConstraints.BOTH;
-		gbc_panelButtons.gridx = 0;
+		gbc_panelButtons.gridx = 1;
 		gbc_panelButtons.gridy = 2;
 		frameClock.getContentPane().add(panelButtons, gbc_panelButtons);
 		GridBagLayout gbl_panelButtons = new GridBagLayout();
@@ -174,19 +185,29 @@ public class Reloj {
 		gbc_buttonStopTime.gridx = 1;
 		gbc_buttonStopTime.gridy = 0;
 		panelButtons.add(buttonStopTime, gbc_buttonStopTime);
-		
-		buttonStartTime.addActionListener(new ActionListener() {
+
+		Calendar calendar = Calendar.getInstance();
+
+		timer = new Timer(ONE_MILLISECOND, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				inputTime.setText(Utils.setTime(calendar));
 			}
 		});
-		
+
+		timer.start();
+
 		buttonStartTime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				timer.start();
 			}
 		});
-	
+
+		buttonStopTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				timer.stop();
+			}
+		});
+
 	}
 
 }
